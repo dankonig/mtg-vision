@@ -135,13 +135,13 @@ Where a uri does not exist a 'N/A' is inserted into the list.
 Each list only contains key:values where the 'lang' == 'en'
 '''
 
-img_sm = [{d['id']: d.get('image_uris', {}).get('small', 'N/A')} for d in card_dict if d['lang'] == 'en']
-img_normal = [{d['id']: d.get('image_uris', {}).get('normal', 'N/A')} for d in card_dict if d['lang'] == 'en']
-img_lg = [{d['id']: d.get('image_uris', {}).get('large', 'N/A')} for d in card_dict if d['lang'] == 'en']
+img_sm = [{d['id']:  [d.get('image_uris', {}).get('small', 'N/A'), d.get('name'), d.get('collector_number')]} for d in card_dict if d['lang'] == 'en']
+img_normal = [{d['id']:  [d.get('image_uris', {}).get('small', 'N/A'), d.get('name'), d.get('collector_number')]} for d in card_dict if d['lang'] == 'en']
+img_lg = [{d['id']:  [d.get('image_uris', {}).get('small', 'N/A'), d.get('name'), d.get('collector_number')]} for d in card_dict if d['lang'] == 'en']
 # img_lg_test = img_lg[1144:1180]
-img_png = [{d['id']: d.get('image_uris', {}).get('png', 'N/A')} for d in card_dict if d['lang'] == 'en']
-img_art_crop = [{d['id']: d.get('image_uris', {}).get('art_crop', 'N/A')} for d in card_dict if d['lang'] == 'en']
-img_border_crop = [{d['id']: d.get('image_uris', {}).get('border_crop', 'N/A')} for d in card_dict if d['lang'] == 'en']
+img_png = [{d['id']:  [d.get('image_uris', {}).get('small', 'N/A'), d.get('name'), d.get('collector_number')]} for d in card_dict if d['lang'] == 'en']
+img_art_crop = [{d['id']:  [d.get('image_uris', {}).get('small', 'N/A'), d.get('name'), d.get('collector_number')]} for d in card_dict if d['lang'] == 'en']
+img_border_crop = [{d['id']:  [d.get('image_uris', {}).get('small', 'N/A'), d.get('name'), d.get('collector_number')]} for d in card_dict if d['lang'] == 'en']
 
 # This was a done to pull just the language into a list for analysis
 language = [d['lang'] for d in card_dict]
@@ -177,7 +177,7 @@ import urllib.request
 # Loop through the final specified list and save 'large' images to local defined storage
 for dicts in img_lg:  # iterate over the list of dicts
     for filename, url in dicts.items():  # for each dict, iterate over each key-value pair
-        fullfilename = os.path.join('lg_img/', filename + '_lg.jpg')  # location for storage and add suffix to file name
+        fullfilename = os.path.join('lg_img/', url[2] + '_' + url[1] + '_' + filename + '_lg.jpg')  # location for storage and add suffix to file name
         try:
             urllib.request.urlretrieve(url, fullfilename)  # try to grab the image
         except ValueError: # if there is no URL/image then fail silently
@@ -186,7 +186,7 @@ for dicts in img_lg:  # iterate over the list of dicts
 # Loop through the final specified list and save 'art_crop' images to local defined storage
 for dicts in img_art_crop:  # iterate over the list of dicts
     for filename, url in dicts.items():  # for each dict, iterate over each key-value pair
-        fullfilename = os.path.join('art_crop_img/', filename + '_art_crop.jpg')  # location for storage and add suffix to file name
+        fullfilename = os.path.join('art_crop_img/', url[2] + '_' + url[1] + '_' + filename + '_art_crop.jpg')  # location for storage and add suffix to file name
         try:
             urllib.request.urlretrieve(url, fullfilename)  # try to grab the image
         except ValueError: # if there is no URL/image then fail silently
