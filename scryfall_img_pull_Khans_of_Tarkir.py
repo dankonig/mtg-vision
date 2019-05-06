@@ -13,7 +13,7 @@ card_dict = json.loads(json_text)
 '''
 These are all list comprehensions which grab the 'id' of each card and a specific image uri. 
 Where a uri does not exist a 'N/A' is inserted into the list.
-Each list only contains key:values where the 'lang' == 'en'
+Each list only contains key:values where the 'lang' == 'en' and 'set_name == 'Khans of Tarkir'
 '''
 
 img_sm = [{d['id']: [d.get('image_uris', {}).get('small', 'N/A'), d.get('name'), d.get('collector_number')]} for d in card_dict if d['lang'] == 'en' and d['set_name'] == 'Khans of Tarkir']
